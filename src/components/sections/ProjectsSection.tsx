@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { ProjectScene } from '@/components/3d/ProjectScene';
 
 const projects = [
   {
@@ -62,29 +63,30 @@ const ProjectCard = ({ project, index, onSelect }: {
       onClick={onSelect}
       className="group relative glass rounded-2xl overflow-hidden cursor-pointer"
     >
-      {/* Gradient top bar */}
-      <div className={`h-2 bg-gradient-to-r ${project.gradient}`} />
-
-      <div className="p-6">
-        {/* Project number */}
-        <span className="text-6xl font-bold text-muted/30 absolute top-4 right-4">
+      {/* 3D Scene */}
+      <div className="relative">
+        <ProjectScene projectId={project.id} />
+        {/* Project number overlay */}
+        <span className="absolute top-2 right-3 text-4xl font-bold text-foreground/20">
           0{project.id}
         </span>
+      </div>
 
-        <h3 className="text-2xl font-bold mb-3 group-hover:text-gradient transition-all duration-300">
+      <div className="p-6">
+        <h3 className="text-xl font-bold mb-2 group-hover:text-gradient transition-all duration-300">
           {project.title}
         </h3>
         
-        <p className="text-muted-foreground mb-4 line-clamp-2">
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
           {project.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground"
+              className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground"
             >
               {tag}
             </span>
