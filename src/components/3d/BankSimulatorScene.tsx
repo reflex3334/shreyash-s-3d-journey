@@ -1,7 +1,19 @@
 import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, MeshDistortMaterial, RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
+
+const useMousePosition = () => {
+  const { viewport } = useThree();
+  const mouse = useRef({ x: 0, y: 0 });
+  
+  useFrame(({ pointer }) => {
+    mouse.current.x = (pointer.x * viewport.width) / 2;
+    mouse.current.y = (pointer.y * viewport.height) / 2;
+  });
+  
+  return mouse;
+};
 
 const Coin = ({ position, rotationSpeed = 1, delay = 0 }: { position: [number, number, number]; rotationSpeed?: number; delay?: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -114,10 +126,17 @@ const CreditCard = ({ position, rotation }: { position: [number, number, number]
 
 const BankingScene = () => {
   const groupRef = useRef<THREE.Group>(null);
+  const mouse = useMousePosition();
+  const targetRotation = useRef({ x: 0, y: 0 });
   
-  useFrame((state) => {
+  useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.15;
+      // Smooth lerp to mouse position
+      targetRotation.current.x = mouse.current.y * 0.25;
+      targetRotation.current.y = mouse.current.x * 0.25;
+      
+      groupRef.current.rotation.x += (targetRotation.current.x - groupRef.current.rotation.x) * 0.05;
+      groupRef.current.rotation.y += (targetRotation.current.y - groupRef.current.rotation.y) * 0.05;
     }
   });
 
