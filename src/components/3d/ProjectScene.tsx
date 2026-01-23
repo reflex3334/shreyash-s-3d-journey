@@ -1,8 +1,8 @@
 import { Suspense, lazy } from 'react';
 
-const ServiceHubScene = lazy(() => import('./ServiceHubScene'));
-const ChurnPredictionScene = lazy(() => import('./ChurnPredictionScene'));
-const BankSimulatorScene = lazy(() => import('./BankSimulatorScene'));
+const HospitalScene = lazy(() => import('./HospitalScene'));
+const FreelancingScene = lazy(() => import('./FreelancingScene'));
+const PlantDiseaseScene = lazy(() => import('./PlantDiseaseScene'));
 
 const LoadingFallback = () => (
   <div className="w-full h-full flex items-center justify-center">
@@ -16,11 +16,11 @@ interface ProjectSceneProps {
 
 export const ProjectScene = ({ projectId }: ProjectSceneProps) => {
   return (
-    <div className="w-full h-48 rounded-lg overflow-hidden bg-background/50">
+    <div className="w-full h-full rounded-lg overflow-hidden bg-background/50">
       <Suspense fallback={<LoadingFallback />}>
-        {projectId === 1 && <ServiceHubScene />}
-        {projectId === 2 && <ChurnPredictionScene />}
-        {projectId === 3 && <BankSimulatorScene />}
+        {projectId === 1 && <HospitalScene />}
+        {projectId === 2 && <FreelancingScene />}
+        {projectId === 3 && <PlantDiseaseScene />}
       </Suspense>
     </div>
   );
