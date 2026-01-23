@@ -154,9 +154,14 @@ export const ProjectsSection = () => {
 
       {/* Project Detail Modal */}
       <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-        <DialogContent className="glass border-border max-w-2xl">
+        <DialogContent className="glass border-border max-w-3xl">
           {selectedProject && (
             <>
+              {/* Expanded 3D Scene */}
+              <div className="w-full h-64 md:h-80 rounded-xl overflow-hidden bg-background/50 mb-4">
+                <ProjectScene projectId={selectedProject.id} />
+              </div>
+              
               <DialogHeader>
                 <div className={`h-2 w-20 rounded-full bg-gradient-to-r ${selectedProject.gradient} mb-4`} />
                 <DialogTitle className="text-2xl font-bold">
