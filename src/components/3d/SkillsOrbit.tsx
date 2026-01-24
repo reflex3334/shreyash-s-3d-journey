@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Text, Float, PerspectiveCamera } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Text, Float, PerspectiveCamera, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 const skills = [
@@ -23,42 +23,58 @@ interface SkillSphereProps {
 }
 
 const SkillSphere = ({ skill, index, total, onHover, isHovered }: SkillSphereProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
   const angle = (index / total) * Math.PI * 2;
   const radius = 2.5;
   const yOffset = (index % 3 - 1) * 0.5;
 
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    if (meshRef.current) {
+    if (groupRef.current) {
       const currentAngle = angle + time * 0.2;
-      meshRef.current.position.x = Math.cos(currentAngle) * radius;
-      meshRef.current.position.z = Math.sin(currentAngle) * radius;
-      meshRef.current.position.y = yOffset + Math.sin(time * 0.5 + index) * 0.2;
+      groupRef.current.position.x = Math.cos(currentAngle) * radius;
+      groupRef.current.position.z = Math.sin(currentAngle) * radius;
+      groupRef.current.position.y = yOffset + Math.sin(time * 0.5 + index) * 0.2;
       
       // Scale on hover
       const targetScale = isHovered ? 1.3 : 1;
-      meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+      groupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-      <mesh
-        ref={meshRef}
-        onPointerEnter={() => onHover(skill.name)}
-        onPointerLeave={() => onHover(null)}
-      >
-        <sphereGeometry args={[0.3, 32, 32]} />
-        <meshStandardMaterial
-          color={skill.color}
-          emissive={skill.color}
-          emissiveIntensity={isHovered ? 0.8 : 0.3}
-          roughness={0.2}
-          metalness={0.8}
-        />
-      </mesh>
-    </Float>
+    <group ref={groupRef}>
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+        <mesh
+          onPointerEnter={() => onHover(skill.name)}
+          onPointerLeave={() => onHover(null)}
+        >
+          <sphereGeometry args={[0.3, 32, 32]} />
+          <meshStandardMaterial
+            color={skill.color}
+            emissive={skill.color}
+            emissiveIntensity={isHovered ? 0.8 : 0.3}
+            roughness={0.2}
+            metalness={0.8}
+          />
+        </mesh>
+        {/* Billboard text that always faces camera */}
+        <Billboard follow={true} lockX={false} lockY={false} lockZ={false}>
+          <Text
+            position={[0, 0, 0]}
+            fontSize={0.12}
+            color="#ffffff"
+            anchorX="center"
+            anchorY="middle"
+            outlineWidth={0.02}
+            outlineColor="#000000"
+            font="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiJ-Ek-_EeA.woff2"
+          >
+            {skill.name}
+          </Text>
+        </Billboard>
+      </Float>
+    </group>
   );
 };
 
