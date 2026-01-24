@@ -3,6 +3,9 @@ import { Suspense, lazy } from 'react';
 const ServiceHubScene = lazy(() => import('./ServiceHubScene'));
 const ChurnPredictionScene = lazy(() => import('./ChurnPredictionScene'));
 const BankSimulatorScene = lazy(() => import('./BankSimulatorScene'));
+const HospitalScene = lazy(() => import('./HospitalScene'));
+const HustlerScene = lazy(() => import('./HustlerScene'));
+const PlantDiseaseScene = lazy(() => import('./PlantDiseaseScene'));
 
 const LoadingFallback = () => (
   <div className="w-full h-full flex items-center justify-center">
@@ -21,6 +24,9 @@ export const ProjectScene = ({ projectId }: ProjectSceneProps) => {
         {projectId === 1 && <ServiceHubScene />}
         {projectId === 2 && <ChurnPredictionScene />}
         {projectId === 3 && <BankSimulatorScene />}
+        {projectId === 4 && <HospitalScene />}
+        {projectId === 5 && <HustlerScene />}
+        {projectId === 6 && <PlantDiseaseScene />}
       </Suspense>
     </div>
   );
