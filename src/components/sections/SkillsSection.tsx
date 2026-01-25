@@ -29,19 +29,19 @@ export const SkillsSection = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative min-h-screen py-24 px-4 overflow-hidden"
+      className="relative min-h-screen py-16 px-4 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-8"
+          className="text-center mb-4"
         >
           <span className="text-secondary text-sm font-semibold tracking-wider uppercase">
             Skills & Expertise
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold font-display mt-4 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold font-display mt-2 mb-3">
             My <span className="text-gradient">Tech Universe</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

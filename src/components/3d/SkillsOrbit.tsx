@@ -379,13 +379,13 @@ const Scene = ({ onPlanetSelect, onPlanetHover, selectedPlanet, hoveredPlanet }:
 
   useFrame(() => {
     // Smooth camera zoom on selection
-    const targetZ = selectedPlanet ? 4 : 8;
+    const targetZ = selectedPlanet ? 4 : 7;
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
   });
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 3, 8]} fov={50} />
+      <PerspectiveCamera makeDefault position={[0, 2, 7]} fov={55} />
       <ambientLight intensity={0.2} />
       <pointLight position={[0, 0, 0]} intensity={2} color="#6366f1" />
       <pointLight position={[10, 10, 10]} intensity={0.5} color="#ffffff" />
@@ -434,7 +434,7 @@ export const SkillsOrbitCanvas = ({
   }, []);
 
   return (
-    <div className="relative h-[500px] w-full">
+    <div className="relative h-[420px] w-full">
       <Canvas
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
