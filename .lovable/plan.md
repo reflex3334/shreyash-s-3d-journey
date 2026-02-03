@@ -1,86 +1,40 @@
 
-# Enhanced Tech Universe Hover Tooltip
 
-## Overview
-Enhance the hover tooltip in the "My Tech Universe" section to display comprehensive information about each technology when hovering over a planet, matching the detailed panel design shown in your screenshots.
+# Fix Hover Panel Scrolling Issue
 
-## Current Behavior
-- Hovering shows only: tech name + "Live Deployment" badge in a small pill
-- Full details only appear when clicking a planet
+## Problem
+The hover information panel in "My Tech Universe" has `pointer-events-none` applied, which prevents scrolling through the content when there are multiple projects or long implementation lists.
 
-## Proposed Changes
+## Root Cause
+- Line 18 in `HoverInfoPanel.tsx` has `pointer-events-none` on the outer container
+- This was added to prevent the panel from blocking planet hover/click interactions
+- However, it also disables scroll functionality on the content area
 
-### 1. Replace Simple Tooltip with Rich Hover Panel
+## Solution
+Enable pointer events specifically on the scrollable content area while keeping the outer container non-interactive for positioning.
 
-Transform the basic hover tooltip into a detailed information panel that includes:
+### Changes to `src/components/3d/HoverInfoPanel.tsx`
 
-- **Header**: Tech name with colored indicator + "Live Deployment" badge (for Docker)
-- **Project Cards** for each project using that technology:
-  - Project name with pin icon
-  - "IMPLEMENTATION" section with bullet points
-  - "OUTCOME" section with the result
+**Line 18:** Keep `pointer-events-none` on outer container for proper positioning
 
-### 2. Visual Design (matching your screenshots)
+**Line 23:** Add `pointer-events-auto` to the inner glass container so users can scroll
 
 ```text
-+--------------------------------------------------+
-|  [color dot] Tech Name    [Live Deployment]      |
-+--------------------------------------------------+
-|  +--------------------------------------------+  |
-|  |  [pin] Project Name                        |  |
-|  |  [gear] IMPLEMENTATION                     |  |
-|  |  - Bullet point 1                          |  |
-|  |  - Bullet point 2                          |  |
-|  |  - Bullet point 3                          |  |
-|  |  +--------------------------------------+  |  |
-|  |  | [check] OUTCOME                      |  |  |
-|  |  | Outcome description text             |  |  |
-|  |  +--------------------------------------+  |  |
-|  +--------------------------------------------+  |
-|                                                  |
-|  [Additional project cards if multiple...]       |
-+--------------------------------------------------+
+Before:
+<div className="glass rounded-xl border border-white/10 overflow-hidden">
+
+After:
+<div className="glass rounded-xl border border-white/10 overflow-hidden pointer-events-auto">
 ```
 
-### 3. Position and Animation
+This allows:
+- The outer positioning wrapper to remain non-interactive (won't block planets behind it)
+- The visible panel content to be interactive (enables scrolling)
+- Users to scroll through long lists of implementation details and multiple projects
 
-- Panel appears at top of the canvas (centered horizontally)
-- Smooth fade-in animation with Framer Motion
-- Scrollable content if multiple projects exist
-- Panel disappears smoothly when mouse leaves the planet
+## Visual Behavior After Fix
+1. Hover over a planet → Panel appears
+2. Move mouse into the panel → Panel remains visible
+3. Scroll within the panel → Content scrolls normally
+4. Move mouse away from both planet and panel → Panel disappears
 
----
-
-## Technical Implementation
-
-### File: `src/components/3d/SkillsOrbit.tsx`
-
-**Changes (lines 453-464):**
-
-1. Replace the simple tooltip div with a rich `HoverInfoPanel` component
-2. Add:
-   - Glass morphism background with colored glow (based on planet color)
-   - Tech name header with category badge
-   - Scrollable project cards with:
-     - Pin icon + project name
-     - "IMPLEMENTATION" label with gear icon (pink/magenta color)
-     - Bullet points for implementation items
-     - "OUTCOME" section with checkmark icon (green) in a highlighted container
-3. Use Framer Motion's `AnimatePresence` for smooth enter/exit animations
-4. Set appropriate max-height with overflow-y-auto for scrolling
-
-### Styling Details
-
-- Background: `glass` class with colored box-shadow
-- Headers: Bold text with planet color indicator
-- IMPLEMENTATION label: Uppercase, pink/magenta (#EC4899)
-- Bullet points: Small circles in planet color
-- OUTCOME section: Dark background with green checkmark and label
-- Border: Subtle `border-white/10` for glass effect
-
-### Positioning
-
-- Position: `absolute top-4 left-1/2 -translate-x-1/2`
-- Max width: `max-w-lg` (larger than current pill)
-- Z-index: Ensure it's above the canvas
-- `pointer-events-none` to prevent blocking planet interaction
