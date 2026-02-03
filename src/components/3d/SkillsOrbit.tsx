@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, PerspectiveCamera, Ring, Text } from '@react-three/drei';
+import { Float, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
-
+import { HoverInfoPanel } from './HoverInfoPanel';
 export interface TechPlanet {
   name: string;
   color: string;
@@ -450,19 +450,8 @@ export const SkillsOrbitCanvas = ({
         />
       </Canvas>
 
-      {/* Hover tooltip */}
-      {hoveredPlanet && !selectedPlanet && (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 glass px-4 py-2 rounded-full flex items-center gap-2 pointer-events-none">
-          <span
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: hoveredPlanet.color, boxShadow: `0 0 10px ${hoveredPlanet.color}` }}
-          />
-          <span className="text-foreground font-semibold">{hoveredPlanet.name}</span>
-          {hoveredPlanet.hasLiveDeployment && (
-            <span className="text-xs bg-success/20 text-success px-2 py-0.5 rounded-full">Live Deployment</span>
-          )}
-        </div>
-      )}
+      {/* Hover tooltip - Rich Info Panel */}
+      {!selectedPlanet && <HoverInfoPanel planet={hoveredPlanet} />}
 
       {/* Click hint */}
       {!selectedPlanet && !hoveredPlanet && (
