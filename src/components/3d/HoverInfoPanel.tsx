@@ -20,7 +20,7 @@ export const HoverInfoPanel = ({ planet }: HoverInfoPanelProps) => {
             boxShadow: `0 0 30px ${planet.color}40`,
           }}
         >
-          <div className="glass rounded-xl border border-white/10 overflow-hidden">
+          <div className="glass rounded-xl border border-white/10 overflow-hidden pointer-events-auto">
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
               <div className="flex items-center gap-2">
