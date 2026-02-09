@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Download } from 'lucide-react';
 import HeroScene from '../3d/HeroScene';
 
 export const HeroSection = () => {
@@ -76,6 +76,16 @@ export const HeroSection = () => {
             whileTap={{ scale: 0.95 }}
           >
             Get In Touch
+          </motion.a>
+          <motion.a
+            href="/resume/Shreyash_Shinde_Resume.pdf"
+            download
+            className="px-8 py-4 rounded-full glass text-foreground font-semibold hover:bg-muted/50 transition-all duration-300 inline-flex items-center gap-2"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Download className="w-5 h-5" />
+            Download Resume
           </motion.a>
         </motion.div>
       </div>
