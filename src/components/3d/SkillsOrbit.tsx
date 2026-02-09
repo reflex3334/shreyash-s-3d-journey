@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import { HoverInfoPanel } from './HoverInfoPanel';
+import { useInViewport } from '@/hooks/use-in-viewport';
 export interface TechPlanet {
   name: string;
   color: string;
@@ -433,22 +434,30 @@ export const SkillsOrbitCanvas = ({
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
+  const [containerRef, isVisible] = useInViewport<HTMLDivElement>();
+
   return (
-    <div className="relative h-[420px] w-full">
-      <Canvas
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-        onClick={() => {
-          if (selectedPlanet) onPlanetSelect(null);
-        }}
-      >
-        <Scene
-          onPlanetSelect={onPlanetSelect}
-          onPlanetHover={onPlanetHover}
-          selectedPlanet={selectedPlanet}
-          hoveredPlanet={hoveredPlanet}
-        />
-      </Canvas>
+    <div ref={containerRef} className="relative h-[420px] w-full">
+      {isVisible ? (
+        <Canvas
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: true }}
+          onClick={() => {
+            if (selectedPlanet) onPlanetSelect(null);
+          }}
+        >
+          <Scene
+            onPlanetSelect={onPlanetSelect}
+            onPlanetHover={onPlanetHover}
+            selectedPlanet={selectedPlanet}
+            hoveredPlanet={hoveredPlanet}
+          />
+        </Canvas>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
 
       {/* Hover tooltip - Rich Info Panel */}
       {!selectedPlanet && <HoverInfoPanel planet={hoveredPlanet} />}
