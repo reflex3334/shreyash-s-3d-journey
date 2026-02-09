@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 
 const socialLinks = [
-  { icon: Github, label: 'GitHub', href: 'https://github.com/shreyashshinde', color: 'hover:text-foreground' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/shreyashshinde', color: 'hover:text-primary' },
-  { icon: Mail, label: 'Email', href: 'mailto:shreyash@example.com', color: 'hover:text-accent' },
+  { icon: Github, label: 'GitHub', href: 'https://github.com/ShreyashS19', color: 'hover:text-foreground' },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/shreyash-shinde19/', color: 'hover:text-primary' },
+  { icon: Mail, label: 'Email', href: 'mailto:shindeshreyash363@gmail.com?subject=Hello from Portfolio&body=Hi Shreyash,%0A%0AI found your portfolio and wanted to reach out.%0A%0A', color: 'hover:text-accent' },
 ];
 
 export const ContactSection = () => {
