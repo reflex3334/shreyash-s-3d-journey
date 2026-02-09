@@ -1,36 +1,33 @@
 
 
-# Update Social Links in Contact Section
+# Add Resume Download Button
 
 ## Overview
-Update the three social media links (GitHub, LinkedIn, Email) in the contact section to point to your correct profiles and configure the email with a pre-filled message.
+Add a "Download Resume" button to the hero section so recruiters and visitors can easily download your resume PDF. The uploaded resume will be placed in the `public` folder for direct download access.
 
 ## What Changes
 
-| Link | Current (Wrong) | Updated (Correct) |
-|------|------------------|--------------------|
-| GitHub | github.com/shreyashshinde | github.com/ShreyashS19 |
-| LinkedIn | linkedin.com/in/shreyashshinde | linkedin.com/in/shreyash-shinde19/ |
-| Email | shreyash@example.com (no body) | shindeshreyash363@gmail.com + pre-filled subject and body |
+### 1. Copy resume PDF to the project
+Copy `Shreyash_Shinde_9021207702.pdf` to `public/resume/Shreyash_Shinde_Resume.pdf` so it can be served as a static file and downloaded directly.
 
-When someone clicks the Email link, their email app will open with:
-- **To**: shindeshreyash363@gmail.com
-- **Subject**: "Hello from Portfolio"
-- **Body**: "Hi Shreyash, I found your portfolio and wanted to reach out."
+### 2. Add download button to hero section
+Add a third button ("Download Resume") alongside "Explore My Work" and "Get In Touch" in the hero section. It will use the `Download` icon from lucide-react and trigger a direct file download when clicked.
 
-## Technical Details
+### File: `src/components/sections/HeroSection.tsx`
 
-### File: `src/components/sections/ContactSection.tsx`
+- Import the `Download` icon from `lucide-react`
+- Add a new `motion.a` button after "Get In Touch" with:
+  - `href="/resume/Shreyash_Shinde_Resume.pdf"`
+  - `download` attribute to trigger download instead of navigation
+  - Styled with a glass look and a download icon
+  - Same hover/tap animations as the other buttons
 
-**Lines 10-12** - Update the `socialLinks` array URLs:
-
-```typescript
-const socialLinks = [
-  { icon: Github, label: 'GitHub', href: 'https://github.com/ShreyashS19', color: 'hover:text-foreground' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/shreyash-shinde19/', color: 'hover:text-primary' },
-  { icon: Mail, label: 'Email', href: 'mailto:shindeshreyash363@gmail.com?subject=Hello from Portfolio&body=Hi Shreyash,%0A%0AI found your portfolio and wanted to reach out.%0A%0A', color: 'hover:text-accent' },
-];
+### Button layout (3 buttons in a row on desktop, stacked on mobile):
+```text
+[ Explore My Work ]  [ Get In Touch ]  [ Download Resume ]
 ```
 
-Single file edit, 3 lines changed.
-
+## Result
+- Clicking the button immediately downloads the resume PDF
+- Works on all devices (desktop, tablet, mobile)
+- Consistent styling with existing hero buttons
