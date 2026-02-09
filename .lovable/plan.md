@@ -3,23 +3,26 @@
 # Update Social Links in Contact Section
 
 ## Overview
-Update the social media links in the contact section footer to use your correct URLs and properly configure the email link with a pre-filled body message.
+Update the three social media links (GitHub, LinkedIn, Email) in the contact section to point to your correct profiles and configure the email with a pre-filled message.
 
-## Current Links (lines 9-13)
-- GitHub: `https://github.com/shreyashshinde` (incorrect)
-- LinkedIn: `https://linkedin.com/in/shreyashshinde` (incorrect)
-- Email: `mailto:shreyash@example.com` (incorrect, no body)
+## What Changes
 
-## Updated Links
-- **GitHub**: `https://github.com/ShreyashS19`
-- **LinkedIn**: `https://www.linkedin.com/in/shreyash-shinde19/`
-- **Email**: `mailto:shindeshreyash363@gmail.com?subject=Hello from Portfolio&body=Hi Shreyash,%0A%0AI found your portfolio and wanted to reach out.%0A%0A`
+| Link | Current (Wrong) | Updated (Correct) |
+|------|------------------|--------------------|
+| GitHub | github.com/shreyashshinde | github.com/ShreyashS19 |
+| LinkedIn | linkedin.com/in/shreyashshinde | linkedin.com/in/shreyash-shinde19/ |
+| Email | shreyash@example.com (no body) | shindeshreyash363@gmail.com + pre-filled subject and body |
+
+When someone clicks the Email link, their email app will open with:
+- **To**: shindeshreyash363@gmail.com
+- **Subject**: "Hello from Portfolio"
+- **Body**: "Hi Shreyash, I found your portfolio and wanted to reach out."
 
 ## Technical Details
 
 ### File: `src/components/sections/ContactSection.tsx`
 
-**Lines 9-13** - Update the `socialLinks` array:
+**Lines 10-12** - Update the `socialLinks` array URLs:
 
 ```typescript
 const socialLinks = [
@@ -29,14 +32,5 @@ const socialLinks = [
 ];
 ```
 
-### Email `mailto` Format Explanation
-- `mailto:` - Opens the default email client
-- `?subject=` - Pre-fills the subject line
-- `&body=` - Pre-fills the email body
-- `%0A` - URL-encoded newline character for line breaks
-
-This will open the user's email client with:
-- **To**: shindeshreyash363@gmail.com
-- **Subject**: Hello from Portfolio
-- **Body**: "Hi Shreyash, I found your portfolio and wanted to reach out."
+Single file edit, 3 lines changed.
 
