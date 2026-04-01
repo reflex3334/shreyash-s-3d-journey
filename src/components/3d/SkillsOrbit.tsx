@@ -386,7 +386,7 @@ const Scene = ({ onPlanetSelect, onPlanetHover, selectedPlanet, hoveredPlanet }:
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 2, 7]} fov={55} />
+      <PerspectiveCamera makeDefault position={[0, 1, 7]} fov={55} />
       <ambientLight intensity={0.2} />
       <pointLight position={[0, 0, 0]} intensity={2} color="#6366f1" />
       <pointLight position={[10, 10, 10]} intensity={0.5} color="#ffffff" />
