@@ -36,7 +36,7 @@ const ExperienceSection = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="experience" className="py-32 px-4 relative" ref={ref}>
+    <section id="experience" className="px-4 relative py-[100px]" ref={ref}>
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
 
