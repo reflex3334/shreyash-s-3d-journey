@@ -29,14 +29,14 @@ export const SkillsSection = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 overflow-hidden"
+      className="relative py-[100px] px-4 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-4"
+          className="text-center mb-2"
         >
           <span className="text-secondary text-sm font-semibold tracking-wider uppercase">
             Skills & Expertise
