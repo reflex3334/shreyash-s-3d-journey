@@ -437,7 +437,7 @@ export const SkillsOrbitCanvas = ({
   const [containerRef, isVisible] = useInViewport<HTMLDivElement>();
 
   return (
-    <div ref={containerRef} className="relative h-[420px] w-full">
+    <div ref={containerRef} className="relative h-[520px] w-full">
       {isVisible ? (
         <Canvas
           dpr={[1, 2]}

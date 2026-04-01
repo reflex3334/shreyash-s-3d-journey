@@ -36,7 +36,7 @@ export const SkillsSection = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-4"
+          className="text-center mb-2"
         >
           <span className="text-secondary text-sm font-semibold tracking-wider uppercase">
             Skills & Expertise
