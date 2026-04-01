@@ -17,6 +17,18 @@ const experiences = [
     ],
     tech: ['Java', 'React', 'MySQL', 'Maven', 'JUnit', 'Mockito', 'Tailwind CSS'],
   },
+  {
+    role: 'Intern — Plant Disease Recognition System',
+    company: '1M1B Green Internship Program',
+    duration: 'Jul 2025 – Aug 2025',
+    location: 'Remote',
+    bullets: [
+      'Built a Flask-based deep learning web app to detect plant diseases from leaf images using a pre-trained CNN model',
+      'Designed a clean frontend and integrated model loading and prediction using TensorFlow/Keras',
+      'Helped farmers identify diseases early, supporting better crop yield',
+    ],
+    tech: ['Python', 'Flask', 'TensorFlow', 'HTML', 'CSS'],
+  },
 ];
 
 const ExperienceSection = () => {
