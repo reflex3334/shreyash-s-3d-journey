@@ -1,33 +1,40 @@
 
 
-# Add Resume Download Button
+# Add Experience Section
 
 ## Overview
-Add a "Download Resume" button to the hero section so recruiters and visitors can easily download your resume PDF. The uploaded resume will be placed in the `public` folder for direct download access.
+Add a dedicated "Experience" section to the portfolio showcasing your Infosys Springboard internship, placed between About and Skills sections. Also update the resume file with the newly uploaded version.
+
+## Content (from resume)
+
+**Infosys Springboard Internship 6.0 — Bank Simulator Project**
+- Duration: August 2025 – October 2025 (Remote)
+- Built a full-stack banking management system using Java (Jersey, MySQL) and React
+- Implemented real-time email notifications, authentication, validation-driven RESTful APIs, and admin dashboard
+- Ensured reliability with JUnit & Mockito testing; responsive UI with Tailwind CSS
+- Tech: Java, React, MySQL, Maven, JUnit, Mockito
 
 ## What Changes
 
-### 1. Copy resume PDF to the project
-Copy `Shreyash_Shinde_9021207702.pdf` to `public/resume/Shreyash_Shinde_Resume.pdf` so it can be served as a static file and downloaded directly.
+### 1. Create `src/components/sections/ExperienceSection.tsx`
+- Timeline-style layout with a vertical line and milestone dots (matching the dark/glass aesthetic)
+- Animated entry using Framer Motion + `useInView`
+- Experience card with role, company, duration, description bullets, and tech tags
+- Section heading: "Experience" with gradient text accent
 
-### 2. Add download button to hero section
-Add a third button ("Download Resume") alongside "Explore My Work" and "Get In Touch" in the hero section. It will use the `Download` icon from lucide-react and trigger a direct file download when clicked.
+### 2. Update `src/pages/Index.tsx`
+- Import and add `<ExperienceSection />` between `<AboutSection />` and `<SkillsSection />`
 
-### File: `src/components/sections/HeroSection.tsx`
+### 3. Update `src/components/Navigation.tsx`
+- Add "Experience" nav item to the `navItems` array (href: `#experience`)
 
-- Import the `Download` icon from `lucide-react`
-- Add a new `motion.a` button after "Get In Touch" with:
-  - `href="/resume/Shreyash_Shinde_Resume.pdf"`
-  - `download` attribute to trigger download instead of navigation
-  - Styled with a glass look and a download icon
-  - Same hover/tap animations as the other buttons
+### 4. Update resume PDF
+- Copy `Shreyash_Shinde_9021207702-2.pdf` to `public/resume/Shreyash_Shinde_Resume.pdf` (overwrite old version)
 
-### Button layout (3 buttons in a row on desktop, stacked on mobile):
-```text
-[ Explore My Work ]  [ Get In Touch ]  [ Download Resume ]
-```
+## Design
+- Glass card with left border accent (primary color gradient)
+- Duration badge at top-right
+- Bullet points for responsibilities
+- Tech stack shown as small rounded tags at the bottom
+- Consistent with existing section styling (dark background, glass morphism, motion animations)
 
-## Result
-- Clicking the button immediately downloads the resume PDF
-- Works on all devices (desktop, tablet, mobile)
-- Consistent styling with existing hero buttons
