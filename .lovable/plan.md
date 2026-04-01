@@ -1,40 +1,25 @@
 
 
-# Add Experience Section
+# Fix Tech Universe Orbit: Remove Empty Space and Verify Functionality
 
-## Overview
-Add a dedicated "Experience" section to the portfolio showcasing your Infosys Springboard internship, placed between About and Skills sections. Also update the resume file with the newly uploaded version.
+## Issues Found
 
-## Content (from resume)
+1. **Empty space above the orbit**: The section uses `min-h-screen py-16` which forces excessive vertical padding. Combined with the camera sitting at `y: 2` (looking downward), the orbit appears pushed down with wasted space above.
+2. **Canvas height**: Currently `h-[420px]` -- slightly cramped for 9 planets spanning orbit radii up to 5.0 units.
+3. **Functionality**: The click/hover/detail panel code is structurally correct. No console errors related to the orbit itself.
 
-**Infosys Springboard Internship 6.0 — Bank Simulator Project**
-- Duration: August 2025 – October 2025 (Remote)
-- Built a full-stack banking management system using Java (Jersey, MySQL) and React
-- Implemented real-time email notifications, authentication, validation-driven RESTful APIs, and admin dashboard
-- Ensured reliability with JUnit & Mockito testing; responsive UI with Tailwind CSS
-- Tech: Java, React, MySQL, Maven, JUnit, Mockito
+## Changes
 
-## What Changes
+### 1. `src/components/sections/SkillsSection.tsx`
+- Change section className from `"relative min-h-screen py-16 px-4 overflow-hidden"` to `"relative py-[100px] px-4 overflow-hidden"` (remove `min-h-screen`, match other sections' padding pattern)
+- Reduce heading bottom margin from `mb-4` to `mb-2` to tighten gap above the canvas
 
-### 1. Create `src/components/sections/ExperienceSection.tsx`
-- Timeline-style layout with a vertical line and milestone dots (matching the dark/glass aesthetic)
-- Animated entry using Framer Motion + `useInView`
-- Experience card with role, company, duration, description bullets, and tech tags
-- Section heading: "Experience" with gradient text accent
+### 2. `src/components/3d/SkillsOrbit.tsx`
+- Increase canvas container height from `h-[420px]` to `h-[520px]` so all orbit rings are fully visible without clipping
+- Adjust camera Y position from `[0, 2, 7]` to `[0, 1, 7]` to center the solar system vertically instead of looking too far down (reduces the empty top gap inside the canvas)
 
-### 2. Update `src/pages/Index.tsx`
-- Import and add `<ExperienceSection />` between `<AboutSection />` and `<SkillsSection />`
-
-### 3. Update `src/components/Navigation.tsx`
-- Add "Experience" nav item to the `navItems` array (href: `#experience`)
-
-### 4. Update resume PDF
-- Copy `Shreyash_Shinde_9021207702-2.pdf` to `public/resume/Shreyash_Shinde_Resume.pdf` (overwrite old version)
-
-## Design
-- Glass card with left border accent (primary color gradient)
-- Duration badge at top-right
-- Bullet points for responsibilities
-- Tech stack shown as small rounded tags at the bottom
-- Consistent with existing section styling (dark background, glass morphism, motion animations)
+## Result
+- No wasted vertical space above the orbit
+- All planets and orbit rings fully visible
+- Click, hover, and detail panel functionality unchanged
 
