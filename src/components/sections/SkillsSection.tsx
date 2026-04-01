@@ -29,7 +29,7 @@ export const SkillsSection = () => {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative min-h-screen py-16 px-4 overflow-hidden"
+      className="relative py-[100px] px-4 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
