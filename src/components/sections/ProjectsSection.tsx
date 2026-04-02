@@ -101,6 +101,24 @@ const projects = [
     internship: '1M1B Green Internship Program (Remote)',
     showLinks: true,
   },
+  {
+    id: 7,
+    title: 'Exam Management System',
+    description: 'A full-stack web-based exam management platform to streamline and digitize academic exam workflows.',
+    longDescription: 'A full-stack web-based exam management platform designed to streamline and digitize academic exam workflows. The system enables administrators to efficiently manage exams, subjects, and schedules while allowing students to securely access exam information and results. It enhances operational efficiency and ensures a smooth academic experience through a modern and secure interface.',
+    tags: ['Spring Boot', 'React', 'TypeScript', 'MySQL', 'Spring Security', 'JWT', 'Tailwind CSS'],
+    gradient: 'from-primary to-secondary',
+    features: [
+      'Role-based authentication (Super Admin / Admin / Student)',
+      'Secure login with JWT authentication',
+      'Complete exam lifecycle management (create, schedule, update)',
+      'Subject, exam type, and period management',
+      'Responsive and user-friendly interface',
+    ],
+    impact: 'Improves exam organization efficiency, reduces manual workload, and ensures secure and structured academic data management while providing a seamless experience for both administrators and students.',
+    github: 'https://github.com/ShreyashS19/Exam-Management.git',
+    showLinks: true,
+  },
 ];
 
 const ProjectCard = ({ project, index, onSelect }: { 

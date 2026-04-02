@@ -32,6 +32,7 @@ export const ProjectScene = ({ projectId }: ProjectSceneProps) => {
           {projectId === 4 && <HospitalScene />}
           {projectId === 5 && <HustlerScene />}
           {projectId === 6 && <PlantDiseaseScene />}
+          {projectId === 7 && <ExamManagementScene />}
         </Suspense>
       ) : (
         <LoadingFallback />
