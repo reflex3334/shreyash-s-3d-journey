@@ -263,9 +263,9 @@ const Planet = ({ planet, isSelected, isHovered, onSelect, onHover, focusedPlane
         meshRef.current.position.lerp(new THREE.Vector3(0, 0, 0), 0.05);
       }
 
-      // Scale animation
+      // Scale animation with hover pulse
       const baseScale = planet.size;
-      const hoverScale = isHovered ? 1.3 : 1;
+      const hoverScale = isHovered ? (1.3 + Math.sin(time * 3) * 0.08) : 1;
       const focusScale = isFocused ? 2 : 1;
       const dimScale = dimmed ? 0.7 : 1;
       const targetScale = baseScale * hoverScale * focusScale * dimScale;
@@ -274,11 +274,16 @@ const Planet = ({ planet, isSelected, isHovered, onSelect, onHover, focusedPlane
       // Rotation
       meshRef.current.rotation.y += 0.01;
 
-      // Glow effect
+      // Emissive pulse on hover
+      (meshRef.current.material as THREE.MeshStandardMaterial).emissiveIntensity = isHovered
+        ? (0.8 + Math.sin(time * 3) * 0.3)
+        : planet.isPrimary ? 0.5 : 0.3;
+
+      // Glow effect with hover pulse
       if (glowRef.current) {
-        const glowIntensity = isHovered || isFocused || planet.hasLiveDeployment ? 0.8 : 0.3;
+        const glowIntensity = isHovered ? (0.7 + Math.sin(time * 4) * 0.2) : isFocused || planet.hasLiveDeployment ? 0.8 : 0.3;
         (glowRef.current.material as THREE.MeshBasicMaterial).opacity = dimmed ? 0.1 : glowIntensity;
-        glowRef.current.scale.copy(meshRef.current.scale).multiplyScalar(1.5);
+        glowRef.current.scale.copy(meshRef.current.scale).multiplyScalar(isHovered ? 2.0 : 1.5);
         glowRef.current.position.copy(meshRef.current.position);
       }
     }
