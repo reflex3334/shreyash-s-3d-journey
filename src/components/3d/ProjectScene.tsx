@@ -7,6 +7,7 @@ const BankSimulatorScene = lazy(() => import('./BankSimulatorScene'));
 const HospitalScene = lazy(() => import('./HospitalScene'));
 const HustlerScene = lazy(() => import('./HustlerScene'));
 const PlantDiseaseScene = lazy(() => import('./PlantDiseaseScene'));
+const ExamManagementScene = lazy(() => import('./ExamManagementScene'));
 
 const LoadingFallback = () => (
   <div className="w-full h-full flex items-center justify-center">
@@ -31,6 +32,7 @@ export const ProjectScene = ({ projectId }: ProjectSceneProps) => {
           {projectId === 4 && <HospitalScene />}
           {projectId === 5 && <HustlerScene />}
           {projectId === 6 && <PlantDiseaseScene />}
+          {projectId === 7 && <ExamManagementScene />}
         </Suspense>
       ) : (
         <LoadingFallback />
