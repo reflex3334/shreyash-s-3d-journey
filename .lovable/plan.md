@@ -1,25 +1,40 @@
 
 
-# Fix Tech Universe Orbit: Remove Empty Space and Verify Functionality
+# Pause Hovered Planet & Show Full Info
 
-## Issues Found
-
-1. **Empty space above the orbit**: The section uses `min-h-screen py-16` which forces excessive vertical padding. Combined with the camera sitting at `y: 2` (looking downward), the orbit appears pushed down with wasted space above.
-2. **Canvas height**: Currently `h-[420px]` -- slightly cramped for 9 planets spanning orbit radii up to 5.0 units.
-3. **Functionality**: The click/hover/detail panel code is structurally correct. No console errors related to the orbit itself.
+## Problem
+Currently all planets orbit continuously regardless of hover state. The hover info panel shows but the hovered planet keeps moving, making it hard to read.
 
 ## Changes
 
-### 1. `src/components/sections/SkillsSection.tsx`
-- Change section className from `"relative min-h-screen py-16 px-4 overflow-hidden"` to `"relative py-[100px] px-4 overflow-hidden"` (remove `min-h-screen`, match other sections' padding pattern)
-- Reduce heading bottom margin from `mb-4` to `mb-2` to tighten gap above the canvas
+### 1. `src/components/3d/SkillsOrbit.tsx` — Planet component
+- Replace the time-based angle calculation (`initialAngle + time * speed`) with an accumulated angle stored in a `useRef`
+- On each frame, only increment the angle if the planet is **not** hovered and **not** selected
+- This makes only the hovered planet freeze in place while all others keep orbiting
 
-### 2. `src/components/3d/SkillsOrbit.tsx`
-- Increase canvas container height from `h-[420px]` to `h-[520px]` so all orbit rings are fully visible without clipping
-- Adjust camera Y position from `[0, 2, 7]` to `[0, 1, 7]` to center the solar system vertically instead of looking too far down (reduces the empty top gap inside the canvas)
+Current logic (line 247):
+```ts
+const angle = initialAngle.current + time * planet.orbitSpeed;
+```
+
+New logic:
+```ts
+// Store accumulated angle in a ref
+if (!isHovered && !isSelected) {
+  accumulatedAngle.current += delta * planet.orbitSpeed;
+}
+const angle = accumulatedAngle.current;
+```
+
+### 2. `src/components/3d/SkillsOrbit.tsx` — HoverInfoPanel display
+- The `HoverInfoPanel` already shows on hover with full project info (implementation details + outcomes). No change needed there — it already displays the complete stored data.
+
+### 3. `src/components/sections/SkillsSection.tsx`
+- No changes needed. The hover state is already wired through.
 
 ## Result
-- No wasted vertical space above the orbit
-- All planets and orbit rings fully visible
-- Click, hover, and detail panel functionality unchanged
+- Hovering a planet freezes **only that planet** in its orbit position
+- All other planets continue revolving normally
+- The full info panel appears as before with all project details
+- Releasing hover resumes the planet's orbit seamlessly from where it stopped
 
