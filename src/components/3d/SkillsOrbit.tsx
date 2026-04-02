@@ -258,7 +258,7 @@ const Planet = ({ planet, isSelected, isHovered, onSelect, onHover, focusedPlane
       if (!isFocused) {
         meshRef.current.position.x = Math.cos(angle) * currentRadius;
         meshRef.current.position.z = Math.sin(angle) * currentRadius;
-        meshRef.current.position.y = Math.sin(time * 0.5 + initialAngle.current) * 0.2;
+        meshRef.current.position.y = Math.sin(time * 0.5 + accumulatedAngle.current) * 0.2;
       } else {
         meshRef.current.position.lerp(new THREE.Vector3(0, 0, 0), 0.05);
       }
