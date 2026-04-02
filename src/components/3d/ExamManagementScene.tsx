@@ -14,7 +14,7 @@ const useMousePosition = () => {
 };
 
 const ExamSheet = ({ position, rotation, color = '#4F46E5' }: { position: [number, number, number]; rotation: [number, number, number]; color?: string }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<THREE.Group>(null);
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 1.5 + position[0]) * 0.05;
