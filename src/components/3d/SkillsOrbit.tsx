@@ -235,16 +235,19 @@ const Planet = ({ planet, isSelected, isHovered, onSelect, onHover, focusedPlane
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
   const ringRef = useRef<THREE.Mesh>(null);
-  const initialAngle = useRef(Math.random() * Math.PI * 2);
+  const accumulatedAngle = useRef(Math.random() * Math.PI * 2);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
     if (meshRef.current) {
       const isFocused = focusedPlanet === planet.name;
       const dimmed = focusedPlanet && !isFocused;
 
-      // Orbit animation
-      const angle = initialAngle.current + time * planet.orbitSpeed;
+      // Only advance orbit if not hovered and not selected
+      if (!isHovered && !isSelected) {
+        accumulatedAngle.current += delta * planet.orbitSpeed;
+      }
+      const angle = accumulatedAngle.current;
       const targetRadius = isFocused ? 0 : planet.orbitRadius;
       const currentRadius = THREE.MathUtils.lerp(
         meshRef.current.position.length() || planet.orbitRadius,
@@ -255,7 +258,7 @@ const Planet = ({ planet, isSelected, isHovered, onSelect, onHover, focusedPlane
       if (!isFocused) {
         meshRef.current.position.x = Math.cos(angle) * currentRadius;
         meshRef.current.position.z = Math.sin(angle) * currentRadius;
-        meshRef.current.position.y = Math.sin(time * 0.5 + initialAngle.current) * 0.2;
+        meshRef.current.position.y = Math.sin(time * 0.5 + accumulatedAngle.current) * 0.2;
       } else {
         meshRef.current.position.lerp(new THREE.Vector3(0, 0, 0), 0.05);
       }
