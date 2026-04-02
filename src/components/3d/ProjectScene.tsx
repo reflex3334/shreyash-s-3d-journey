@@ -7,6 +7,7 @@ const BankSimulatorScene = lazy(() => import('./BankSimulatorScene'));
 const HospitalScene = lazy(() => import('./HospitalScene'));
 const HustlerScene = lazy(() => import('./HustlerScene'));
 const PlantDiseaseScene = lazy(() => import('./PlantDiseaseScene'));
+const ExamManagementScene = lazy(() => import('./ExamManagementScene'));
 
 const LoadingFallback = () => (
   <div className="w-full h-full flex items-center justify-center">
